@@ -30,30 +30,30 @@ constexpr MaterialStruct MATERIALS[static_cast<int>(MaterialType::Count)] = {
 
     [static_cast<int>(MaterialType::Sand)] = {
         .color = {200, 200, 200, 255},
-        .density = 0.0f,
+        .density = 2.0f,
         .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Water)] = {
-        .color = {0, 0, 0, 0},
+        .color = {0, 0, 0, 255},
         .density = 0.0f,
         .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Stone)] = {
-        .color = {0, 0, 0, 0},
+        .color = {0, 0, 0, 255},
         .density = 0.0f,
         .isStatic = true
     },
 
     [static_cast<int>(MaterialType::Fire)] = {
-        .color = {0, 0, 0, 0},
+        .color = {0, 0, 0, 255},
         .density = 0.0f,
         .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Steam)] = {
-        .color = {0, 0, 0, 0},
+        .color = {0, 0, 0, 255},
         .density = 0.0f,
         .isStatic = false
     }
