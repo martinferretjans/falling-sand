@@ -25,24 +25,24 @@ constexpr MaterialStruct MATERIALS[static_cast<int>(MaterialType::Count)] = {
     [static_cast<int>(MaterialType::Empty)] = {
         .color = {0, 0, 0, 255},
         .density = 0.0f,
-        .isStatic = true
+        .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Sand)] = {
-        .color = {200, 200, 200, 255},
+        .color = {255, 225, 130, 255},
         .density = 2.0f,
         .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Water)] = {
-        .color = {0, 0, 0, 255},
-        .density = 0.0f,
+        .color = {50, 100, 255, 255},
+        .density = 1.0f,
         .isStatic = false
     },
 
     [static_cast<int>(MaterialType::Stone)] = {
-        .color = {0, 0, 0, 255},
-        .density = 0.0f,
+        .color = {150, 150, 150, 255},
+        .density = 10.0f,
         .isStatic = true
     },
 

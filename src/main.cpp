@@ -21,8 +21,14 @@ int main(void)
         if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             simulation.SetCellValue(GetMouseY() / CELL_SIZE, GetMouseX() / CELL_SIZE, MaterialType::Sand);
         }
+        if(IsKeyDown(KEY_S)){
+            simulation.SetCellValue(GetMouseY() / CELL_SIZE, GetMouseX() / CELL_SIZE, MaterialType::Stone);
+        }
+        if(IsKeyDown(KEY_W)){
+            simulation.SetCellValue(GetMouseY() / CELL_SIZE, GetMouseX() / CELL_SIZE, MaterialType::Water);
+        }
         simulation.Update();
-        DrawRectangle(GetMouseX(), GetMouseY(),CELL_SIZE,CELL_SIZE,MATERIALS[static_cast<int>(MaterialType::Sand)].color);
+        //DrawRectangle(GetMouseX(), GetMouseY(),CELL_SIZE,CELL_SIZE,MATERIALS[static_cast<int>(MaterialType::Sand)].color);
         DrawFPS(20,20);
         EndDrawing();
     }
