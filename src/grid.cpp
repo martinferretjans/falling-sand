@@ -21,22 +21,22 @@ void Grid::Swap(int row1, int column1, int row2, int column2) {
     }
 };
 
-void Grid::SetMaterial(int row, int column, Material_Type material) {
+void Grid::SetMaterial(int row, int column, MaterialType material) {
     if(IsWithinBounds(row, column)) {
         cells[row][column] = material;
     }
 }
 
 bool Grid::IsEmpty(int row, int column) const {
-    return IsWithinBounds(row, column) && cells[row][column] == Material_Type::Empty;
+    return IsWithinBounds(row, column) && cells[row][column] == MaterialType::Empty;
 }
 
 
-Material_Type Grid::GetMaterial(int row, int column) const {
+MaterialType Grid::GetMaterial(int row, int column) const {
     if(IsWithinBounds(row, column)) {
         return cells[row][column];
     }
-    return Material_Type::Empty;
+    return MaterialType::Empty;
 }
 
 bool Grid::IsWithinBounds(int row, int column) const {
@@ -49,7 +49,7 @@ bool Grid::IsWithinBounds(int row, int column) const {
 void Grid::Clean() {
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
-            SetMaterial(row, column, Material_Type::Empty);
+            SetMaterial(row, column, MaterialType::Empty);
         }
     }
 }

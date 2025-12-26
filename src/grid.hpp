@@ -10,10 +10,10 @@
 
 class Grid {
 public:
-    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize), cells(rows, std::vector<Material_Type>(columns, Material_Type::Empty)) {};
+    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize), cells(rows, std::vector<MaterialType>(columns, MaterialType::Empty)) {};
     void Draw();
-    void SetMaterial(int row, int column, Material_Type material);
-    Material_Type GetMaterial(int row, int column) const;
+    void SetMaterial(int row, int column, MaterialType material);
+    MaterialType GetMaterial(int row, int column) const;
     void Clean();
     void Swap(int row1, int column1, int row2, int column2);
     bool IsEmpty(int row, int column) const;
@@ -25,5 +25,5 @@ private:
     int rows;       // Y
     int columns;    // X
     int cellSize;
-    std::vector<std::vector<Material_Type>> cells;
+    std::vector<std::vector<MaterialType>> cells;
 };

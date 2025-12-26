@@ -5,7 +5,7 @@
 #pragma once
 #include "raylib.h"
 
-enum class Material_Type {
+enum class MaterialType {
     Empty,
     Sand,
     Water,
@@ -15,44 +15,44 @@ enum class Material_Type {
     Count
 };
 
-struct Material_Struct {
+struct MaterialStruct {
     Color color;
     float density;
     bool isStatic;
 };
 
-constexpr Material_Struct MATERIALS[static_cast<int>(Material_Type::Count)] = {
-    [static_cast<int>(Material_Type::Empty)] = {
+constexpr MaterialStruct MATERIALS[static_cast<int>(MaterialType::Count)] = {
+    [static_cast<int>(MaterialType::Empty)] = {
+        .color = {0, 0, 0, 255},
+        .density = 0.0f,
+        .isStatic = true
+    },
+
+    [static_cast<int>(MaterialType::Sand)] = {
+        .color = {200, 200, 200, 255},
+        .density = 0.0f,
+        .isStatic = false
+    },
+
+    [static_cast<int>(MaterialType::Water)] = {
+        .color = {0, 0, 0, 0},
+        .density = 0.0f,
+        .isStatic = false
+    },
+
+    [static_cast<int>(MaterialType::Stone)] = {
         .color = {0, 0, 0, 0},
         .density = 0.0f,
         .isStatic = true
     },
 
-    [static_cast<int>(Material_Type::Sand)] = {
-        .color = {200, 200, 200, 200},
-        .density = 0.0f,
-        .isStatic = false
-    },
-
-    [static_cast<int>(Material_Type::Water)] = {
+    [static_cast<int>(MaterialType::Fire)] = {
         .color = {0, 0, 0, 0},
         .density = 0.0f,
         .isStatic = false
     },
 
-    [static_cast<int>(Material_Type::Stone)] = {
-        .color = {0, 0, 0, 0},
-        .density = 0.0f,
-        .isStatic = true
-    },
-
-    [static_cast<int>(Material_Type::Fire)] = {
-        .color = {0, 0, 0, 0},
-        .density = 0.0f,
-        .isStatic = false
-    },
-
-    [static_cast<int>(Material_Type::Steam)] = {
+    [static_cast<int>(MaterialType::Steam)] = {
         .color = {0, 0, 0, 0},
         .density = 0.0f,
         .isStatic = false
