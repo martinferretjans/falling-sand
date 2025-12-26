@@ -10,7 +10,7 @@
 class Simulation {
 public:
     Simulation(int width, int height, int cellSize) : grid(width, height, cellSize) {};
-    void SetCellValue(int row, int column, Material_Type value);
+    void SetCellValue(int row, int column, MaterialType value);
     void Update();
 private:
     Grid grid;

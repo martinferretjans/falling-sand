@@ -29,6 +29,6 @@ void Simulation::Draw() {
 }
 
 
-void Simulation::SetCellValue(int row, int column, Material_Type value) {
+void Simulation::SetCellValue(int row, int column, MaterialType value) {
     grid.SetMaterial(row,column,value);
 }
