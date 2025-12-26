@@ -4,36 +4,39 @@
 
 #include "grid.hpp"
 #include "raylib.h"
+#include "materials.hpp"
 
 void Grid::Draw() {
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
-            Color color = cells[row][column] ? Color{225,220,145,255} : Color{55,55,55,255};
+            Color color =  MATERIALS[static_cast<int>(cells[row][column])].color;
             DrawRectangle(column * cellSize,row * cellSize,cellSize,cellSize,color);
         }
     }
 }
 
-void Grid::SetValue(int row, int column, int value) {
+void Grid::Swap(int row1, int column1, int row2, int column2) {
+    if(IsWithinBounds(row1, column1) && IsWithinBounds(row2, column2)) {
+        std::swap(cells[row1][column1], cells[row2][column2]);
+    }
+};
+
+void Grid::SetMaterial(int row, int column, Material_Type material) {
     if(IsWithinBounds(row, column)) {
-        cells[row][column] = value;
+        cells[row][column] = material;
     }
 }
 
 bool Grid::IsEmpty(int row, int column) const {
-    if(IsWithinBounds(row, column) && cells[row][column] == 0) {
-        return true;
-    }
-    return false;
+    return IsWithinBounds(row, column) && cells[row][column] == Material_Type::Empty;
 }
 
 
-int Grid::GetValue(int row, int column) const {
+Material_Type Grid::GetMaterial(int row, int column) const {
     if(IsWithinBounds(row, column)) {
         return cells[row][column];
-    } else {
-        return -1;
     }
+    return Material_Type::Empty;
 }
 
 bool Grid::IsWithinBounds(int row, int column) const {
@@ -43,13 +46,10 @@ bool Grid::IsWithinBounds(int row, int column) const {
     return false;
 }
 
-
-
 void Grid::Clean() {
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
-            Color color = Color{55,55,55,255};
-            DrawRectangle(column * cellSize,row * cellSize,cellSize,cellSize,color);
+            SetMaterial(row, column, Material_Type::Empty);
         }
     }
 }

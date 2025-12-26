@@ -5,11 +5,12 @@
 #pragma once
 
 #include "grid.hpp"
+#include "materials.hpp"
 
 class Simulation {
 public:
     Simulation(int width, int height, int cellSize) : grid(width, height, cellSize) {};
-    void SetCellValue(int row, int column, int value);
+    void SetCellValue(int row, int column, Material_Type value);
     void Update();
 private:
     Grid grid;

@@ -5,16 +5,17 @@
 #pragma once
 
 #include <vector>
+#include "materials.hpp"
 #include "raylib.h"
 
 class Grid {
 public:
-    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize), cells(rows, std::vector<int>(columns, 0)) {};
+    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize), cells(rows, std::vector<Material_Type>(columns, Material_Type::Empty)) {};
     void Draw();
-    void SetValue(int row, int column, int value);
-    int GetValue(int row, int column) const;
+    void SetMaterial(int row, int column, Material_Type material);
+    Material_Type GetMaterial(int row, int column) const;
     void Clean();
-    //void Swap(int row, int column, int row2, int column2);
+    void Swap(int row1, int column1, int row2, int column2);
     bool IsEmpty(int row, int column) const;
     bool IsWithinBounds(int row, int column) const;
     int GetRows() const {return rows;};
@@ -24,5 +25,5 @@ private:
     int rows;       // Y
     int columns;    // X
     int cellSize;
-    std::vector<std::vector<int>> cells; //In the future this will be a particle vector, planning on adding more materials.
+    std::vector<std::vector<Material_Type>> cells;
 };
