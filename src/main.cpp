@@ -19,10 +19,10 @@ int main(void)
         BeginDrawing();
 
         if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            simulation.SetCellValue(GetMouseY() / CELL_SIZE, GetMouseX() / CELL_SIZE, 1);
+            simulation.SetCellValue(GetMouseY() / CELL_SIZE, GetMouseX() / CELL_SIZE, Material_Type::Sand);
         }
         simulation.Update();
-        DrawRectangle(GetMouseX(), GetMouseY(),CELL_SIZE,CELL_SIZE,{225,220,145,255} );
+        DrawRectangle(GetMouseX(), GetMouseY(),CELL_SIZE,CELL_SIZE,MATERIALS[static_cast<int>(Material_Type::Sand)].color);
         EndDrawing();
     }
     CloseWindow();
