@@ -13,14 +13,17 @@
 class Grid {
 public:
     Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize),
-                                                cells(rows, std::vector<Cell>(columns, {MaterialType::Empty, MATERIALS[static_cast<int>(MaterialType::Empty)].color})) {};
-    void Draw();
+                                                cells(rows, std::vector<Cell>(columns, {
+                                                    MaterialType::Empty,
+                                                    MATERIALS[static_cast<int>(MaterialType::Empty)].color})) {};
+    void Draw() const;
     void SetMaterial(int row, int column, MaterialType material);
     MaterialType GetMaterial(int row, int column) const;
     void Clean();
     void Swap(int row1, int column1, int row2, int column2);
     bool IsEmpty(int row, int column) const;
     bool IsWithinBounds(int row, int column) const;
+    Color RandomizeColor(MaterialType material) const;
     int GetRows() const {return rows;};
     int GetColumns() const {return columns;};
 

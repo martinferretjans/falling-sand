@@ -6,7 +6,7 @@
 #include "raylib.h"
 #include "materials.hpp"
 
-void Grid::Draw() {
+void Grid::Draw() const{
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
             Color color =  cells[row][column].color;
@@ -24,7 +24,7 @@ void Grid::Swap(int row1, int column1, int row2, int column2) {
 void Grid::SetMaterial(int row, int column, MaterialType material) {
     if(IsWithinBounds(row, column)) {
         cells[row][column].material = material;
-        cells[row][column].color = MATERIALS[static_cast<int>(material)].color;
+        cells[row][column].color = RandomizeColor(material);
     }
 }
 
@@ -38,6 +38,24 @@ MaterialType Grid::GetMaterial(int row, int column) const {
         return cells[row][column].material;
     }
     return MaterialType::Empty;
+}
+
+Color Grid::RandomizeColor(MaterialType material) const{
+    Color baseColor = MATERIALS[static_cast<int>(material)].color;
+
+    if(material == MaterialType::Empty) {
+        return baseColor;
+    }
+
+    Vector3 hsv = ColorToHSV(baseColor);
+
+    float variation = GetRandomValue(-10, 10) / 50.0f;
+    hsv.z += variation;
+
+    if(hsv.z > 1.0f) {hsv.z = 1.0f;}
+    if(hsv.z < 0.0f) {hsv.z = 0.0f;}
+
+    return ColorFromHSV(hsv.x, hsv.y, hsv.z);
 }
 
 bool Grid::IsWithinBounds(int row, int column) const {
