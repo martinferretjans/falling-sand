@@ -14,59 +14,64 @@ void Simulation::UpdateCell(int row, int column) {
 
 void Simulation::UpdateSand(int row, int column) {
     //Downwards
+    int side = GetRandomValue(0, 1) ? 1 : -1;       //Left or Right
+
     if(CanMove(row, column, row+1, column)) {
         grid.Swap(row, column, row+1, column);
-    } else {
-        //down left, down right
-        int column1, column2;
-        if(GetRandomValue(0,1)) { //Will maybe replace with c++ random value
-            column1 = column+1; //Right first
-            column2 = column-1;
-        } else {
-            column1 = column-1; //Left first
-            column2 = column+1;
-        }
-        if(CanMove(row, column, row+1, column1)) {
-            grid.Swap(row, column, row+1, column1);
-        } else if(CanMove(row, column, row+1, column2)) {
-            grid.Swap(row, column, row+1, column2);
-        }
+        return;
+    }
+
+    if(CanMove(row, column, row+1, column+side)) {
+        grid.Swap(row, column, row+1, column+side);
+        return;
+    }
+
+    if(CanMove(row, column, row+1, column-side)) {
+        grid.Swap(row, column, row+1, column-side);
+        return;
     }
 }
 
 void Simulation::UpdateWater(int row, int column) {
-    // if(CanMove(row, column, row+1, column)) {
-    //     grid.Swap(row, column, row+1, column);
-    // } else {
-    int column1, column2;       //Left and Right
-    if(GetRandomValue(0,1)) { //Will maybe replace with c++ random value
-        column1 = column+1; //Right first
-        column2 = column-1;
-    } else {
-        column1 = column-1; //Left first
-        column2 = column+1;
+    if(CanMove(row, column, row+1, column)) {
+        grid.Swap(row, column, row+1, column);
+        return;
     }
-    std::vector<std::pair<int, int>> positions = {  {row+1, column},  //Down
-                                                    {row, column1}, //Right or left
-                                                    {row, column2}, //Right or left
-                                                    {row+1, column1},  //Down left or down right
-                                                    {row+1, column2}}; //Down left or down right
 
-    for(auto [newRow, newColumn] : positions) {
-        if(CanMove(row, column, newRow, newColumn)) {
-            grid.Swap(row, column, newRow, newColumn);
-            break;
+    int side = GetRandomValue(0, 1) ? 1 : -1;
+
+    if(CanMove(row, column, row+1, column+side)) {
+        grid.Swap(row, column, row+1, column+side);
+    } else if (CanMove(row, column, row+1, column-side)) {
+        grid.Swap(row,column,row+1, column-side);
+        return;
+    }
+
+    int dispersionRate = MATERIALS[static_cast<int>(MaterialType::Water)].dispersionRate;
+    for (int i = 1; i <= dispersionRate; i++) {
+        if (CanMove(row, column, row, column + (side * i))) {
+            grid.Swap(row, column, row, column + (side * i));
+            return;
+        } else if (CanMove(row, column, row, column - (side * i))) {
+            grid.Swap(row, column, row, column - (side * i));
+            return;
         }
     }
 }
 
 bool Simulation::CanMove(int row1, int column1, int row2, int column2) const {
+    if (!grid.IsWithinBounds(row2, column2)) {
+        return false;
+    }
+
     MaterialType a = grid.GetMaterial(row1, column1);
     MaterialType b = grid.GetMaterial(row2, column2);
-    return (MATERIALS[static_cast<int>(a)].density > MATERIALS[static_cast<int>(b)].density) && (!MATERIALS[static_cast<int>(b)].isStatic);
+
+    float aDensity = MATERIALS[static_cast<int>(a)].density;
+    float bDensity = MATERIALS[static_cast<int>(b)].density;
+
+    return b == MaterialType::Empty || (aDensity > bDensity && (!MATERIALS[static_cast<int>(b)].isStatic));
 }
-
-
 
 void Simulation::Draw() {
     grid.Draw();

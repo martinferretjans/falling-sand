@@ -8,9 +8,12 @@
 #include "materials.hpp"
 #include "raylib.h"
 
+//Thinking of making the grid a single contiguous array.
+
 class Grid {
 public:
-    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize), cells(rows, std::vector<MaterialType>(columns, MaterialType::Empty)) {};
+    Grid(int width, int height, int cellSize) : rows(height/cellSize), columns(width/cellSize), cellSize(cellSize),
+                                                cells(rows, std::vector<Cell>(columns, {MaterialType::Empty, MATERIALS[static_cast<int>(MaterialType::Empty)].color})) {};
     void Draw();
     void SetMaterial(int row, int column, MaterialType material);
     MaterialType GetMaterial(int row, int column) const;
@@ -22,8 +25,14 @@ public:
     int GetColumns() const {return columns;};
 
 private:
-    int rows;       // Y
-    int columns;    // X
+    int rows;
+    int columns;
     int cellSize;
-    std::vector<std::vector<MaterialType>> cells;
+
+    struct Cell {
+        MaterialType material;
+        Color color;
+    };
+
+    std::vector<std::vector<Cell>> cells;
 };

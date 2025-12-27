@@ -9,8 +9,8 @@
 void Grid::Draw() {
     for(int row = 0; row < rows; row++) {
         for(int column = 0; column < columns; column++) {
-            Color color =  MATERIALS[static_cast<int>(cells[row][column])].color;
-            DrawRectangle(column * cellSize,row * cellSize,cellSize,cellSize,color);
+            Color color =  cells[row][column].color;
+            DrawRectangle(column * cellSize,row * cellSize,cellSize,cellSize, color);
         }
     }
 }
@@ -23,18 +23,19 @@ void Grid::Swap(int row1, int column1, int row2, int column2) {
 
 void Grid::SetMaterial(int row, int column, MaterialType material) {
     if(IsWithinBounds(row, column)) {
-        cells[row][column] = material;
+        cells[row][column].material = material;
+        cells[row][column].color = MATERIALS[static_cast<int>(material)].color;
     }
 }
 
 bool Grid::IsEmpty(int row, int column) const {
-    return IsWithinBounds(row, column) && cells[row][column] == MaterialType::Empty;
+    return IsWithinBounds(row, column) && cells[row][column].material == MaterialType::Empty;
 }
 
 
 MaterialType Grid::GetMaterial(int row, int column) const {
     if(IsWithinBounds(row, column)) {
-        return cells[row][column];
+        return cells[row][column].material;
     }
     return MaterialType::Empty;
 }
